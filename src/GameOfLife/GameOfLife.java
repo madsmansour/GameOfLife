@@ -45,12 +45,13 @@ public class GameOfLife extends Application {
 
     private Pane root;
 
+    private Timeline timeline;
+
 
 
     @Override
 
     public void start(Stage primaryStage) {
-
 
 
         Pane root = new Pane();
@@ -63,9 +64,7 @@ public class GameOfLife extends Application {
         updateScene(matrix, root);
 
 
-
         Scene scene = new Scene(root, 420, 450);
-
 
 
         Button btn = new Button();
@@ -75,7 +74,7 @@ public class GameOfLife extends Application {
         btn.setOnAction((ActionEvent event) -> {
 
 
-            Timeline timeline = new Timeline(new KeyFrame(
+            timeline = new Timeline(new KeyFrame(
 
                     Duration.millis(300),
 
@@ -89,6 +88,15 @@ public class GameOfLife extends Application {
 
         });
 
+        Button btnStop = new Button();
+        btnStop.setText("Stop");
+        btnStop.setOnAction( event -> {
+            if (timeline == null){
+                return;
+            }
+            timeline.stop();
+
+        });
 
 
 
@@ -99,8 +107,9 @@ public class GameOfLife extends Application {
         root.getChildren().add(label);
 
         root.getChildren().add(btn);
+        root.getChildren().add(btnStop);
 
-
+        btnStop.setLayoutX(300);
 
 
         primaryStage.setTitle("Game of life");
